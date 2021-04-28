@@ -5,41 +5,14 @@ import DisplayCard from './DisplayCard'
 import initialState from './initialState'
 import SizeFilter from './SizeFilter'
 import DropDownComponent from './DropDownComponent'
-import Cart from './Cart'
-function reducer(state, { type, payload }) {
-  switch (type) {
-    case 'display':
-      return {
-        initialItems: payload,
-        items: payload,
-        count: payload.length
-      }
-    case 'SIZE_FILTER':
-      let selectedSizes = payload.filter((e) => e.active === true).map((e) => e.value)
-      let newItems = state.initialItems.filter((item) => {
-        let as = item.availableSizes.filter((size) => selectedSizes.includes(size))
-        if (as.length) return true;
-        return false;
-      })
-      if (selectedSizes.length === 0) newItems = state.initialItems
-      return {
-        initialItems: state.initialItems,
-        items: newItems,
-        count: newItems.length
-      }
-    case 'lowestPrice':
-      return { ...state, items: state.items.sort((a, b) => a.price < b.price ? -1 : 1) }
-    case 'highestPrice':
-
-      return { ...state, items: state.items.sort((a, b) => a.price < b.price ? 1 : -1) }
-    default:
-      return state
-  }
-}
+import CartIcon from './CartIcon'
+import CartSideBar from './CartSideBar'
+import reducer from './reducer'
 
 function App() {
 
-  const [{ items, count }, dispatch] = useReducer(reducer, { initialItems: [], items: [], count: 0 });
+  const [{ items, count, cart }, dispatch] = useReducer(reducer, { initialItems: [], items: [], count: 0, cart: { cartItems: [], cartCount: 0, totalAmount: 0 } });
+  const [toggle, setToggle] = useState(false)
 
   useEffect(() => {
     dispatch({ type: 'display', payload: initialState().items })
@@ -55,9 +28,9 @@ function App() {
   return (
     <>
       <MainContainer>
-        <CartIcon>
-          <Cart />
-        </CartIcon>
+        <CartComponent >
+          <CartIcon toggle={setToggle} size={cart.cartCount} />
+        </CartComponent>
         <FilterSize>
           <SizeFilter filter={handleSizeFilter} />
         </FilterSize>
@@ -69,10 +42,10 @@ function App() {
             </DropDown>
           </FilterComponent>
           <Container>
-            {items.map((item) => <DisplayCard data={item} key={item.id} />)}
+            {items.map((item) => <DisplayCard dispatch={dispatch} data={item} key={item.id} />)}
           </Container>
         </DisplayContainer>
-
+        <CartSideBar cart={cart} toggle={toggle} setToggle={setToggle} />
       </MainContainer>
 
     </>
@@ -112,7 +85,7 @@ const DropDown = styled.div`
 width:50%;
 align-self:flex-end;
 `;
-const CartIcon = styled.div`
+const CartComponent = styled.div`
 position:absolute;
 top:0;
 right:0;

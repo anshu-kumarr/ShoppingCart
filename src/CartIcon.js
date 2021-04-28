@@ -1,20 +1,24 @@
-import React, { useState } from 'react'
+import React from 'react'
 import FontAwesome from 'react-fontawesome'
 import styled from 'styled-components'
 
-function Cart() {
-
-  const [{ count }, setCart] = useState({ cartItems: [], count: 0, total: 0 });
+function Cart(props) {
+  function handleClick() {
+    props.toggle((ps) => !ps);
+  }
   return (
-    <CartIconDisplay>
-      <FontAwesome
-        name="shopping-cart"
-        size="3x"
-      />
-      <CartItemCount>
-        <CartCountDisplay>{count}</CartCountDisplay>
-      </CartItemCount>
-    </CartIconDisplay>
+    <>
+      <CartIconDisplay onClick={handleClick}>
+        <FontAwesome
+          name="shopping-cart"
+          size="3x"
+        />
+        <CartItemCount>
+          <CartCountDisplay>{props.size}</CartCountDisplay>
+        </CartItemCount>
+      </CartIconDisplay>
+
+    </>
   )
 }
 
@@ -24,6 +28,9 @@ const CartIconDisplay = styled.div`
 padding:10px;
 background-color:black;
 color:white;
+position:fixed;
+top:0;
+right:0;
 `
 const CartItemCount = styled.div``
 

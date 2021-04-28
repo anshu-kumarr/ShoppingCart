@@ -1,14 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function DisplayCard({ data }) {
+function DisplayCard({ data, dispatch }) {
   const imgData = require(`./data/products/${data.sku}_1.jpg`).default;
+  function handleClick(event) {
+    dispatch({ type: 'ADD_TO_CART', payload: data })
+  }
   return (
     <ItemCard>
       <ItemImage src={imgData} alt={data.title} />
       <ItemTitle>{data.title}</ItemTitle>
       <ItemPrice>${data.price}</ItemPrice>
-      <ItemButton>Add to Cart</ItemButton>
+      <ItemButton onClick={handleClick}>Add to Cart</ItemButton>
     </ItemCard>
   )
 }
