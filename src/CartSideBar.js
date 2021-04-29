@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import CartIcon from './CartIcon'
 import CartItems from './CartItems'
-function CartSideBar({ toggle, setToggle, cart }) {
+function CartSideBar({ toggle, setToggle, cart, dispatch }) {
   return (
     <CartSideBarDisplay className={toggle ? 'expand' : 'shrink'}>
       <CartComponent>
@@ -10,11 +10,11 @@ function CartSideBar({ toggle, setToggle, cart }) {
       </CartComponent>
       <CartItemDisplay>
         <CartItemHead>Cart</CartItemHead>
-        {cart.cartItems.length ? cart.cartItems.map((item, idx) => <CartItems key={idx} data={item} />) : <div style={{ textAlign: 'center' }}>Cart Is Empty!!</div>}
+        {cart.cartItems.length ? cart.cartItems.map((item, idx) => <CartItems dispatch={dispatch} key={idx} data={item} />) : <div style={{ textAlign: 'center' }}>Cart Is Empty!!</div>}
       </CartItemDisplay>
 
       <CartFooter>
-        <CartTotal> Subtotal : {cart.totalAmount}</CartTotal>
+        <CartTotal> Subtotal : {(cart.totalAmount).toFixed(2)}</CartTotal>
         <CartCheckOut>CheckOut</CartCheckOut>
       </CartFooter>
 
@@ -44,6 +44,9 @@ const CartSideBarDisplay = styled.div`
     transition: all ease-in-out 0.2s;
     right: -400px;
   }
+  @media (max-width:800px){
+    width:fit-content;
+}
 `
 
 const CartComponent = styled.div`
@@ -66,6 +69,7 @@ color: #e6bd08;
 const CartFooter = styled.div`
 margin-top:20px;
 width:100%;
+font-family: Tahoma, Geneva, Verdana, sans-serif;
 `
 const CartTotal = styled.div`
 font-size:1.5rem;

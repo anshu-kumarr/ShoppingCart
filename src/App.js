@@ -45,7 +45,7 @@ function App() {
             {items.map((item) => <DisplayCard dispatch={dispatch} data={item} key={item.id} />)}
           </Container>
         </DisplayContainer>
-        <CartSideBar cart={cart} toggle={toggle} setToggle={setToggle} />
+        <CartSideBar dispatch={dispatch} cart={cart} toggle={toggle} setToggle={setToggle} />
       </MainContainer>
 
     </>
@@ -63,6 +63,9 @@ display:flex;
 flex-flow:wrap;
 justify-content:center;
 margin-top:20px;
+@media (max-width:800px){
+  flex-direction:column;
+}
 `
 const FilterSize = styled.div`
 width : 25%;
@@ -74,16 +77,23 @@ background-color:#eee;
 const FilterComponent = styled.div`
 display:flex;
 align-items:center;
-justify-content:space-around;
 margin-top:30px;
+justify-content:space-evenly;
+@media (max-width:800px){
+  flex-direction:column;
+}
 `;
 const ItemCount = styled.div`
 padding-left:20px;
-width:50%;
 `;
 const DropDown = styled.div`
-width:50%;
-align-self:flex-end;
+width:350px;
+@media (max-width:800px){
+  flex-direction:column;
+  width:80%;
+  margin-top:10px;
+}
+/* margin:0 auto;  */
 `;
 const CartComponent = styled.div`
 position:absolute;

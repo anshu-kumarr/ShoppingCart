@@ -68,6 +68,9 @@ const SizeFilterTitle = styled.div`
 font-size:1.5rem;
 font-weight:600;
 margin:10px;
+@media (max-width:800px){
+font-size:1rem;
+}
 `
 const SizeButtonContainer = styled.div`
 display:flex;

@@ -8,8 +8,15 @@ function DisplayCard({ data, dispatch }) {
   }
   return (
     <ItemCard>
+      <ItemShippingDetail>{data.isFreeShipping ? <p >Free Shipping</p> : <></>}</ItemShippingDetail>
       <ItemImage src={imgData} alt={data.title} />
       <ItemTitle>{data.title}</ItemTitle>
+      <hr style={{
+        width: '30px',
+        height: '2px',
+        background: '#eabf00',
+        border: 'none'
+      }} />
       <ItemPrice>${data.price}</ItemPrice>
       <ItemButton onClick={handleClick}>Add to Cart</ItemButton>
     </ItemCard>
@@ -19,6 +26,7 @@ function DisplayCard({ data, dispatch }) {
 export default DisplayCard
 
 const ItemCard = styled.div`
+position:relative;
 width:30%;
 background-color:#fff;
 text-align:center;
@@ -26,8 +34,15 @@ margin:10px;
 :hover{
   border:solid 1px black;
 }
+@media (max-width:800px){
+  width:100%;
+  margin:0;
+  overflow:hidden;
+  margin-top:10px;
+}
 `
 const ItemImage = styled.img`
+margin-top:20px;
 width:95%;
 `
 const ItemPrice = styled.div`
@@ -51,4 +66,13 @@ padding:5px;
 `
 const ItemTitle = styled.p`
 font-weight:bolder;
+`
+const ItemShippingDetail = styled.div`
+position:absolute;
+right:0;
+background-color:black;
+color:#DAB43E;
+width:40%;
+font-size:10px;
+font-weight:800;
 `

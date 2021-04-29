@@ -29,6 +29,9 @@ export default function reducer(state, { type, payload }) {
       let finalCartItems = handleCart(state.cart.cartItems, payload);
       let totalAmount = findAmount(finalCartItems);
       return { ...state, cart: { cartItems: finalCartItems, cartCount: state.cart.cartCount + 1, totalAmount: totalAmount } }
+    case 'DELETE_FROM_CART':
+      let updatedCart = deleteItem(state.cart, payload);
+      return { ...state, cart: updatedCart };
     default:
       return state
   }
@@ -55,4 +58,15 @@ function handleCart(cartArray, newItem) {
   }
   cartArray.push(newItemInCart);
   return cartArray;
+}
+
+function deleteItem(cart, id) {
+  cart.cartItems.forEach((items) => {
+    if (items.item.id === id) {
+      cart.totalAmount -= items.quantity * items.item.price;
+      cart.cartCount -= items.quantity;
+    }
+  })
+  cart.cartItems = cart.cartItems.filter((items) => items.item.id !== id);
+  return cart;
 }

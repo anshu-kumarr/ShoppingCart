@@ -1,10 +1,17 @@
 import React from 'react'
+import FontAwesome from 'react-fontawesome'
 import styled from 'styled-components';
 
-function CartItems({ data }) {
+function CartItems({ data, dispatch }) {
   const imgData = require(`./data/products/${data.item.sku}_1.jpg`).default;
+  function handleClick() {
+    dispatch({ type: 'DELETE_FROM_CART', payload: data.item.id });
+  }
   return (
     <CartItemBody>
+      <CartItemDelete onClick={handleClick}>
+        <FontAwesome name="times" size="lg" />
+      </CartItemDelete>
       <CartItemImage src={imgData} />
       <CartItemInfo>
         <CartItemTitle>{data.item.title}</CartItemTitle>
@@ -36,6 +43,7 @@ margin:0;
 padding:0;
 font-size: .9rem;
 color: #5b5a5e;
+/* font-family: Tahoma, Geneva, Verdana, sans-serif; */
 `
 const CartItemQuantity = styled.p`
 font-size:1.2rem;
@@ -61,4 +69,13 @@ height: 86px;
 `
 const CartItemBody = styled.div`
 display:flex;
+position:relative;
+`
+const CartItemDelete = styled.div`
+
+color:white;
+position:absolute;
+right:0;
+top:10px;
+cursor:pointer;
 `
