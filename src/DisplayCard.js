@@ -31,6 +31,7 @@ width:30%;
 background-color:#fff;
 text-align:center;
 margin:10px;
+border:1px solid transparent;
 :hover{
   border:solid 1px black;
 }

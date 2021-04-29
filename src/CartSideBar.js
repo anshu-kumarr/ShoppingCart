@@ -9,7 +9,7 @@ function CartSideBar({ toggle, setToggle, cart, dispatch }) {
         <CartIcon toggle={setToggle} size={cart.cartCount} />
       </CartComponent>
       <CartItemDisplay>
-        <CartItemHead>Cart</CartItemHead>
+        <CartItemHead>CART</CartItemHead>
         {cart.cartItems.length ? cart.cartItems.map((item, idx) => <CartItems dispatch={dispatch} key={idx} data={item} />) : <div style={{ textAlign: 'center' }}>Cart Is Empty!!</div>}
       </CartItemDisplay>
 
@@ -33,7 +33,7 @@ const CartSideBarDisplay = styled.div`
   right: 0;
   padding: 25px;
   position: fixed;
-  overflow: auto;
+  overflow:auto;
   height: 100%;
   transition: all ease-in-out 0.3s;
   &.expand {
@@ -67,9 +67,10 @@ color: #e6bd08;
 `
 
 const CartFooter = styled.div`
-margin-top:20px;
-width:100%;
 font-family: Tahoma, Geneva, Verdana, sans-serif;
+margin:20px 0;
+/* position:absolute;
+bottom:0; */
 `
 const CartTotal = styled.div`
 font-size:1.5rem;
