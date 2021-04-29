@@ -27,7 +27,7 @@ export default DisplayCard
 
 const ItemCard = styled.div`
 position:relative;
-width:30%;
+width:22%;
 background-color:#fff;
 text-align:center;
 margin:10px;
@@ -43,30 +43,38 @@ border:1px solid transparent;
 }
 `
 const ItemImage = styled.img`
-margin-top:20px;
+margin:18px 0;
 width:95%;
 `
 const ItemPrice = styled.div`
-font-size:1.5rem;
+font-size:1.6rem;
 font-weight:800;
 font-family: Tahoma, Geneva, Verdana, sans-serif;
 padding:5px;
 margin-bottom:3px;
 `
 const ItemButton = styled.button`
+display:block;
 width:90%;
-font-size:2rem;
-margin-bottom:10px ;
+text-align:center;
+padding:.85em;
+font-size:1rem;
+margin: 0 auto 1.5em;
 border:none;
 background-color:black;
 color:white;
-padding:5px;
 :hover{
   background-color:#DAB43E;
 }
 `
 const ItemTitle = styled.p`
-font-weight:bolder;
+height: 40px;
+max-width:175px;
+font-weight: 600;
+text-align: center;
+padding: 0;
+margin: 0 auto;
+}
 `
 const ItemShippingDetail = styled.div`
 position:absolute;

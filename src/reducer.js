@@ -1,6 +1,7 @@
 export default function reducer(state, { type, payload }) {
   switch (type) {
     case 'display':
+      console.log(payload)
       return {
         ...state,
         initialItems: payload,
@@ -21,9 +22,14 @@ export default function reducer(state, { type, payload }) {
         items: newItems,
         count: newItems.length
       }
+    case 'select':
+      return { ...state, items: state.withoutSort };
     case 'lowestPrice':
+      state.withoutSort = state.items;
+      console.log(state.withoutSort)
       return { ...state, items: state.items.sort((a, b) => a.price < b.price ? -1 : 1) }
     case 'highestPrice':
+      state.withoutSort = state.items;
       return { ...state, items: state.items.sort((a, b) => a.price < b.price ? 1 : -1) }
     case 'ADD_TO_CART':
       let finalCartItems = handleCart(state.cart.cartItems, payload);

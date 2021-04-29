@@ -11,9 +11,9 @@ import reducer from './reducer'
 
 function App() {
 
-  const [{ items, count, cart }, dispatch] = useReducer(reducer, { initialItems: [], items: [], count: 0, cart: { cartItems: [], cartCount: 0, totalAmount: 0 } });
+  const [{ items, count, cart, initialItems }, dispatch] = useReducer(reducer, { initialItems: [], items: [], count: 0, withoutSort: [], cart: { cartItems: [], cartCount: 0, totalAmount: 0 } });
+  console.log(initialItems)
   const [toggle, setToggle] = useState(false)
-
   useEffect(() => {
     dispatch({ type: 'display', payload: initialState().items })
   }, [])
@@ -54,24 +54,24 @@ function App() {
 
 const MainContainer = styled.div`
 display:flex;
-width:80%;
+width:90%;
 margin:0 auto;
 `
 const Container = styled.div`
 width:100%;
 display:flex;
 flex-flow:wrap;
-justify-content:center;
+justify-content:space-evenly;
 margin-top:20px;
 @media (max-width:800px){
   flex-direction:column;
 }
 `
 const FilterSize = styled.div`
-width : 25%;
+width : 20%;
 `
 const DisplayContainer = styled.div`
-width:75%;
+width:80%;
 background-color:#eee;
 `
 const FilterComponent = styled.div`
