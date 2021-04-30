@@ -1,7 +1,6 @@
 export default function reducer(state, { type, payload }) {
   switch (type) {
-    case 'display':
-      console.log(payload)
+    case 'RENDER':
       return {
         ...state,
         initialItems: payload,
@@ -18,19 +17,18 @@ export default function reducer(state, { type, payload }) {
       if (selectedSizes.length === 0) newItems = state.initialItems
       return {
         ...state,
-        initialItems: state.initialItems,
         items: newItems,
         count: newItems.length
       }
-    case 'select':
-      return { ...state, items: state.withoutSort };
-    case 'lowestPrice':
-      state.withoutSort = state.items;
-      console.log(state.withoutSort)
-      return { ...state, items: state.items.sort((a, b) => a.price < b.price ? -1 : 1) }
-    case 'highestPrice':
-      state.withoutSort = state.items;
-      return { ...state, items: state.items.sort((a, b) => a.price < b.price ? 1 : -1) }
+    case 'SELECT':
+      state.items.sort((a, b) => a.id < b.id ? -1 : 1)
+      return { ...state }
+    case 'LOWEST_TO_HIGHEST':
+      state.items.sort((a, b) => a.price < b.price ? -1 : 1)
+      return { ...state }
+    case 'HIGHEST_TO_LOWEST':
+      state.items.sort((a, b) => a.price < b.price ? 1 : -1)
+      return { ...state }
     case 'ADD_TO_CART':
       let finalCartItems = handleCart(state.cart.cartItems, payload);
       let totalAmount = findAmount(finalCartItems);
@@ -42,6 +40,11 @@ export default function reducer(state, { type, payload }) {
       return state
   }
 }
+
+
+
+
+
 function findAmount(cart) {
   let amount = 0;
   cart.forEach((items) => {

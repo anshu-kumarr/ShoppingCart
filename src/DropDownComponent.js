@@ -9,9 +9,9 @@ function DropDown({ orderBy }) {
     <>
       <DropDownTitle>Order By :</DropDownTitle>
       <DropSelect onChange={handleChange}>
-        <DropOption value="select">Select</DropOption>
-        <DropOption value="lowestPrice">Lowest To Highest</DropOption>
-        <DropOption value="highestPrice">Highest To Lowest</DropOption>
+        <DropOption value="SELECT">Select</DropOption>
+        <DropOption value='LOWEST_TO_HIGHEST'>Lowest To Highest</DropOption>
+        <DropOption value='HIGHEST_TO_LOWEST'>Highest To Lowest</DropOption>
       </DropSelect>
     </>
   )

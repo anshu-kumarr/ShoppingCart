@@ -11,13 +11,13 @@ import reducer from './reducer'
 
 function App() {
 
-  const [{ items, count, cart, initialItems }, dispatch] = useReducer(reducer, { initialItems: [], items: [], count: 0, withoutSort: [], cart: { cartItems: [], cartCount: 0, totalAmount: 0 } });
-  console.log(initialItems)
+  const [{ items, count, cart, initialItems }, dispatch] = useReducer(reducer, { initialItems: [], items: [], count: 0, cart: { cartItems: [], cartCount: 0, totalAmount: 0 } });
+
   const [toggle, setToggle] = useState(false)
   useEffect(() => {
-    dispatch({ type: 'display', payload: initialState().items })
+    dispatch({ type: 'RENDER', payload: initialState().items })
   }, [])
-
+  console.log(initialItems)
   function handleSizeFilter(ps) {
     dispatch({ type: 'SIZE_FILTER', payload: ps })
   }
@@ -25,6 +25,8 @@ function App() {
   function handleOrderBy(type) {
     dispatch({ type })
   }
+
+  console.log(initialItems)
   return (
     <>
       <MainContainer>
