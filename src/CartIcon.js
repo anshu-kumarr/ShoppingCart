@@ -39,7 +39,7 @@ const CartCountDisplay = styled.span`
     bottom: 12px;
     right: 10px;
     display: inline-block;
-    padding: 2px 4px .2px;
+    padding: 2px 4px .4px;
     background-color: #e6bd08;
     border-radius: 10px;
     font-weight: 600;
