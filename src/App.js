@@ -1,39 +1,45 @@
-import React, { useReducer, useEffect, useState } from 'react'
-import './style.css'
-import styled from 'styled-components'
-import DisplayCard from './DisplayCard'
-import initialState from './initialState'
-import SizeFilter from './SizeFilter'
-import DropDownComponent from './DropDownComponent'
-import CartIcon from './CartIcon'
-import CartSideBar from './CartSideBar'
-import reducer from './reducer'
+import React, { useReducer, useEffect, useState } from 'react';
+import './style.css';
+import styled from 'styled-components';
+import DisplayCard from './DisplayCard';
+import initialState from './initialState';
+import SizeFilter from './SizeFilter';
+import DropDownComponent from './DropDownComponent';
+import CartIcon from './CartIcon';
+import CartSideBar from './CartSideBar';
+import reducer from './reducer';
+import ReactGA from 'react-ga4';
 
 function App() {
+  ReactGA.initialize('G-XGJD9EKHJP');
+  ReactGA.send('pageview');
 
-  const [{ items, count, cart, initialItems }, dispatch] = useReducer(reducer, { initialItems: [], items: [], count: 0, cart: { cartItems: [], cartCount: 0, totalAmount: 0 } });
+  const [{ items, count, cart, initialItems }, dispatch] = useReducer(reducer, {
+    initialItems: [],
+    items: [],
+    count: 0,
+    cart: { cartItems: [], cartCount: 0, totalAmount: 0 }
+  });
 
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
-    dispatch({ type: 'RENDER', payload: initialState().items })
-  }, [])
-
-
+    dispatch({ type: 'RENDER', payload: initialState().items });
+  }, []);
 
   function handleSizeFilter(ps) {
-    dispatch({ type: 'SIZE_FILTER', payload: ps })
+    dispatch({ type: 'SIZE_FILTER', payload: ps });
   }
 
   function handleOrderBy(type) {
-    dispatch({ type })
+    dispatch({ type });
   }
 
-  console.log(initialItems)
+  console.log(initialItems);
   return (
     <>
       <MainContainer>
-        <CartComponent >
+        <CartComponent>
           <CartIcon toggle={setToggle} size={cart.cartCount} />
         </CartComponent>
         <FilterSize>
@@ -47,63 +53,69 @@ function App() {
             </DropDown>
           </FilterComponent>
           <Container>
-            {items.map((item) => <DisplayCard dispatch={dispatch} data={item} key={item.id} />)}
+            {items.map(item => (
+              <DisplayCard dispatch={dispatch} data={item} key={item.id} />
+            ))}
           </Container>
         </DisplayContainer>
-        <CartSideBar dispatch={dispatch} cart={cart} toggle={toggle} setToggle={setToggle} />
+        <CartSideBar
+          dispatch={dispatch}
+          cart={cart}
+          toggle={toggle}
+          setToggle={setToggle}
+        />
       </MainContainer>
-
     </>
-  )
+  );
 }
 
 const MainContainer = styled.div`
-display:flex;
-width:90%;
-margin:0 auto;
-`
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+`;
 const Container = styled.div`
-width:100%;
-display:flex;
-flex-flow:wrap;
-justify-content:space-evenly;
-margin-top:20px;
-@media (max-width:800px){
-  flex-direction:column;
-}
-`
+  width: 100%;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
+`;
 const FilterSize = styled.div`
-width : 20%;
-`
+  width: 20%;
+`;
 const DisplayContainer = styled.div`
-width:80%;
-background-color:#eee;
-`
+  width: 80%;
+  background-color: #eee;
+`;
 const FilterComponent = styled.div`
-display:flex;
-align-items:center;
-margin-top:30px;
-justify-content:space-evenly;
-@media (max-width:800px){
-  flex-direction:column;
-}
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  justify-content: space-evenly;
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 `;
 const ItemCount = styled.div`
-padding-left:20px;
+  padding-left: 20px;
 `;
 const DropDown = styled.div`
-width:350px;
-@media (max-width:800px){
-  flex-direction:column;
-  width:80%;
-  margin-top:10px;
-}
-/* margin:0 auto;  */
+  width: 350px;
+  @media (max-width: 800px) {
+    flex-direction: column;
+    width: 80%;
+    margin-top: 10px;
+  }
+  /* margin:0 auto;  */
 `;
 const CartComponent = styled.div`
-position:absolute;
-top:0;
-right:0;
-cursor: pointer;
-`
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+`;
 export default App;
